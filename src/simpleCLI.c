@@ -5,7 +5,7 @@ uint32_t current_ptr;
 char CLI_end_char;
 uint32_t max_size;
 
-int8_t init_CLI(uint32_t size){
+int8_t init_CLI(uint32_t size, char *cmd_list){
     if(size == 0) return -1;
 
     CLI_ptr = (char*) malloc((size+1)*sizeof(char));
@@ -33,13 +33,22 @@ uint32_t cmd_lenght(){
     return i-1;
 }
 
-int8_t send_char_to_CLI(char c){
-    if(current_ptr == max_size) return -1;
-    if(c != CLI_end_char){
-        
-    }else{
+uint8_t cmd_index(){
+    return 0;
+}
 
+int8_t send_char_to_CLI(char c){
+    if(current_ptr == max_size){
+        current_ptr = 0;
+        return -1;
     }
+    if(c != CLI_end_char){
+        CLI_ptr[current_ptr] = c;
+        current_ptr++;
+        return 0;
+    }
+    
+    
 
     return c;
 }
